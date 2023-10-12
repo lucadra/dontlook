@@ -27,9 +27,10 @@ def main():
 
     for image in tqdm.tqdm(images, desc='Censoring images...', unit='image'):
         result = model(source=image, stream=True, show=False, save=False, save_txt=False, verbose=False)
-        image_width, image_height = cv2.imread(image).shape[:2]
 
         img = cv2.imread(image)
+        image_height, image_width, _ = img.shape
+
         blurred_img = cv2.GaussianBlur(img, (107, 107), 0)
 
         for box in list(result)[0].boxes: 
