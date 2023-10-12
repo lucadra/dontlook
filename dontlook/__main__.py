@@ -31,7 +31,13 @@ def main():
         img = cv2.imread(image)
         image_height, image_width, _ = img.shape
 
-        blurred_img = cv2.GaussianBlur(img, (107, 107), 0)
+        smaller_dimension = min(image_height, image_width)
+        kernel_size = int(smaller_dimension / 5)
+        
+        if kernel_size % 2 == 0:
+            kernel_size += 1
+
+        blurred_img = cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
 
         for box in list(result)[0].boxes: 
             bounding_box = box.xyxyn.tolist()[0]
