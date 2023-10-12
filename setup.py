@@ -11,6 +11,7 @@ setup(
         "ultralytics==8.0.196",
         "wget==3.2",
         "omegaconf==2.3.0",
+        "typing-extensions==4.8.0"
     ],
     entry_points={
         'console_scripts': [

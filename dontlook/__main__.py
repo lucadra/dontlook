@@ -6,8 +6,19 @@ import wget
 import os
 import numpy as np
 import tqdm 
+import torch
 
 MODEL_URL = 'https://github.com/akanametov/yolov8-face/releases/download/v0.0.0/yolov8n-face.pt'
+
+
+def define_device() -> str:
+    if torch.cuda.is_available():
+        return"cuda"
+    elif torch.backends.mps.is_available() and torch.backends.mps.is_built():
+        return "mps"
+    else:
+        return "cpu"
+    
 
 def main():
     yolo_model_name = 'yolov8n-face.pt'
@@ -24,9 +35,18 @@ def main():
     if not os.path.isdir('censored'):
         os.mkdir('censored')
 
+    device = define_device()
+
+    if device == "cpu":
+        model.model.to(device)
+        model.model.eval()
+        dummy_input = torch.randn(1, 3, 640, 640, device=device)
+        torch.onnx.export(model.model, dummy_input, "yolov8n-face.onnx", verbose=True, opset_version=11)
+        model = torch.onnx.load("yolov8n-face.onnx")
+
 
     for image in tqdm.tqdm(images, desc='Censoring images...', unit='image'):
-        result = model(source=image, stream=True, show=False, save=False, save_txt=False, verbose=False)
+        result = model(source=image, stream=True, show=False, save=False, save_txt=False, verbose=False, device=device)
 
         img = cv2.imread(image)
         image_height, image_width, _ = img.shape
