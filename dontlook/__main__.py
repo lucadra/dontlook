@@ -35,7 +35,7 @@ def main():
     if not os.path.isdir('censored'):
         os.mkdir('censored')
 
-    device = define_device()
+    device = 'cpu'
 
     if device == "cpu":
         model.model.to(device)
