@@ -10,6 +10,7 @@ setup(
         "tqdm==4.66.1",
         "ultralytics==8.0.196",
         "wget==3.2",
+        "omegaconf==2.3.0",
     ],
     entry_points={
         'console_scripts': [
