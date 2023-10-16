@@ -4,6 +4,9 @@ setup(
     name="dontlook",
     version="0.1",
     packages=find_packages(),
+        package_data={
+        "dontlook": ["yolov8n-face.onnx"]
+    },
     install_requires=[
         "numpy==1.26.0",
         "opencv_python==4.8.1.78",
