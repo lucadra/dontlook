@@ -1,6 +1,6 @@
 # DontLook: Automated Face Censorship Tool
 
-DontLook is a Python-based command line tool designed to automatically detect and censor faces in a collection of images. This tool is crafted for digital humanities researchers, ensuring the easy redaction of faces from publicly sourced images before publication.
+DontLook is a Python-based command line tool designed to automatically detect and censor faces in a collection of images. 
 
 |Original Image| Censored with dontlook |
 |--|--|
